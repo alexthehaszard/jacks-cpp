@@ -3,7 +3,7 @@
 #include <ostream>
 #include <chrono>
 
-constexpr size_t games = 10'000'000;
+constexpr size_t games = 100'000;
 
 int main()
 {

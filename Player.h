@@ -21,17 +21,17 @@ GameResult PlayNewGame()
         auto pair = game.find_pair();
         if (pair)
         {
-            if (!game.replace((*pair)[0]) || 
-                !game.replace((*pair)[1])) 
+            if (!game.replace((*pair)[0]) ||
+                !game.replace((*pair)[1]))
                 break;
         }
 
         auto triple = game.find_triple();
         if (triple)
         {
-            if (!game.replace((*triple)[0]) || 
-                !game.replace((*triple)[1]) || 
-                !game.replace((*triple)[2])) 
+            if (!game.replace((*triple)[0]) ||
+                !game.replace((*triple)[1]) ||
+                !game.replace((*triple)[2]))
                 break;
         }
         else if (!pair) 
