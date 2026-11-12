@@ -40,7 +40,7 @@ struct DeckOfCards
 
     constexpr bool has_any_cards_left()
     {
-        return deck_pointer >= deck.size();
+        return deck_pointer < deck.size();
     }
 
     std::string str()

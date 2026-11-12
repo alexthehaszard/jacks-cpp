@@ -4,5 +4,8 @@ build:
 debug:
 	clang++ -std=c++26 -g -Wall -Wextra -Werror -Wno-missing-braces main.cpp -o jacks
 
+xray:
+	clang++ -fxray-instrument -fuse-ld=lld -Wl,-fxray-instrument -std=c++26 -g -Wall -Wextra -Werror -Wno-missing-braces main.cpp -o jacks
+
 test:
 	clang++ -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces tests.cpp -o tests && ./tests
