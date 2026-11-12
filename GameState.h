@@ -11,6 +11,8 @@ class GameState
     constexpr static size_t board_size = 9;
 
     DeckOfCards cards_;
+    // maybe make board_ an unordered_map, where each key is the card, and the value is the number
+    // of that card on the board
     std::array<Card, board_size> board_;
 public:
     constexpr explicit GameState(DeckOfCards cards) : cards_(std::move(cards)), board_{}
@@ -59,7 +61,6 @@ public:
     {
         return !cards_.has_any_cards_left();
     }
-
 
 
     /// finds a pair of indexes where the values add to 11
