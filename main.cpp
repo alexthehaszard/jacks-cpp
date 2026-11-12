@@ -2,6 +2,7 @@
 
 #include <ostream>
 #include <chrono>
+#include <print>
 
 constexpr size_t games = 100'000;
 
