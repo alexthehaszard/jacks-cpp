@@ -6,10 +6,12 @@
 #include <random>
 #include <format>
 
+using Deck = std::array<Card, 52>;
+
 struct DeckOfCards
 {
     size_t deck_pointer;
-    std::array<Card, 52> deck;
+    Deck deck;
 
     constexpr DeckOfCards() : deck_pointer{0}, deck{
         1,2,3,4,5,6,7,8,9,10,11,12,13,
@@ -17,6 +19,9 @@ struct DeckOfCards
         1,2,3,4,5,6,7,8,9,10,11,12,13,
         1,2,3,4,5,6,7,8,9,10,11,12,13
     } {};
+
+    explicit constexpr DeckOfCards(const Deck& other) : deck_pointer{0}, deck{other}
+    {};
 
     constexpr void shuffle()
     {
