@@ -7,7 +7,7 @@
 #include <thread>
 
 constexpr size_t games = 100'000;
-constexpr size_t thread_count = 10;
+constexpr size_t thread_count = 8;
 
 int main()
 {
@@ -32,16 +32,15 @@ int main()
 
 
     {
-        std::array<std::thread, thread_count> threads{};
+        std::array<std::jthread, thread_count> threads{};
         for (auto& thread : threads)
         {
-            thread = std::thread{thread_function};
-            thread.join();
+            thread = std::jthread{thread_function};
         }
     }
     const auto after = std::chrono::high_resolution_clock::now(); 
     const auto duration = after - before;
 
-    std::println("You won {}/{} games in {}", wins.load(), games, std::chrono::duration_cast<std::chrono::milliseconds>(duration));
+    std::println("You won {}/{} games in {}", wins.load(), games_played, std::chrono::duration_cast<std::chrono::milliseconds>(duration));
     return 0;
 }
