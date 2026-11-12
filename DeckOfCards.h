@@ -1,0 +1,64 @@
+#pragma once
+
+#include "Card.h"
+
+#include <array>
+#include <random>
+#include <format>
+
+struct DeckOfCards
+{
+    size_t deck_pointer;
+    std::array<Card, 52> deck;
+
+    constexpr DeckOfCards() : deck_pointer{0}, deck{
+        1,2,3,4,5,6,7,8,9,10,11,12,13,
+        1,2,3,4,5,6,7,8,9,10,11,12,13,
+        1,2,3,4,5,6,7,8,9,10,11,12,13,
+        1,2,3,4,5,6,7,8,9,10,11,12,13
+    } {};
+
+    constexpr void shuffle()
+    {
+        if (deck_pointer != 0) throw std::runtime_error("Should not shuffle a deck after it has been used");
+
+        std::random_device device;
+        auto prng{std::mt19937{device()}};
+        auto distribution{std::uniform_int_distribution(0uz, deck.size()-1)};
+
+        for (auto& card : deck)
+        {
+            // get the new index (in deck) where this card now belongs
+            const auto new_index = distribution(prng);
+
+            // swap the two cards
+            const auto temp_card_value = card.value;
+            card.value = deck[new_index].value;
+            deck[new_index].value = temp_card_value;
+        }
+    }
+
+    constexpr bool has_any_cards_left()
+    {
+        return deck_pointer >= deck.size();
+    }
+
+    std::string str()
+    {
+        std::string out{};
+        for (auto& card : deck)
+        {
+            out += std::format("{} ", card.str());
+        }
+        return out;
+    }
+
+    constexpr std::optional<Card> try_pop_card()
+    {
+        if (deck_pointer >= deck.size()) return std::nullopt;
+        
+        auto top_card = deck[deck_pointer];
+        deck_pointer++;
+        return top_card;
+    }
+};
