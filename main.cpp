@@ -3,7 +3,7 @@
 #include <ostream>
 #include <chrono>
 
-constexpr size_t games = 1000;
+constexpr size_t games = 10'000'000;
 
 int main()
 {
@@ -18,6 +18,6 @@ int main()
     const auto after = std::chrono::high_resolution_clock::now(); 
     const auto duration = after - before;
 
-    std::println("You won {}/{} games in {}", wins, games, duration);
+    std::println("You won {}/{} games in {}", wins, games, std::chrono::duration_cast<std::chrono::milliseconds>(duration));
     return 0;
 }

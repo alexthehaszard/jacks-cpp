@@ -1,5 +1,5 @@
 build:
-	clang++ -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces \
+	clang++ -std=c++26 -O3 -Wall -Wextra -Werror -Wno-missing-braces \
 		main.cpp -o jacks
 
 debug:
