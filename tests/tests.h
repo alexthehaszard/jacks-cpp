@@ -1,5 +1,7 @@
 #pragma once
 
+#include <print>
+
 namespace tests
 {
 void Test_DeckOfCards();
