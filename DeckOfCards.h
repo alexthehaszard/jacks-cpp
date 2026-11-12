@@ -27,9 +27,9 @@ struct DeckOfCards
     {
         if (deck_pointer != 0) throw std::runtime_error("Should not shuffle a deck after it has been used");
 
-        std::random_device device;
-        auto prng{std::mt19937{device()}};
-        auto distribution{std::uniform_int_distribution(0uz, deck.size()-1)};
+        static std::random_device device;
+        static std::mt19937 prng{device()};
+        static std::uniform_int_distribution distribution{0uz, deck.size()-1};
 
         for (auto& card : deck)
         {
