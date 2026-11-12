@@ -32,10 +32,11 @@ int main()
 
 
     {
-        std::array<std::jthread, thread_count> threads{};
+        std::array<std::thread, thread_count> threads{};
         for (auto& thread : threads)
         {
-            thread = std::jthread{thread_function};
+            thread = std::thread{thread_function};
+            thread.join();
         }
     }
     const auto after = std::chrono::high_resolution_clock::now(); 
