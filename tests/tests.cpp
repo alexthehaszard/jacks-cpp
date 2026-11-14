@@ -3,6 +3,13 @@
 #include <iostream>
 #include <print>
 
+void AssertTrue(bool statement, std::string_view message) {
+  if (!statement) {
+    std::println("{}", message);
+    throw std::runtime_error("Assertion failed");
+  }
+}
+
 int main() {
   try {
     std::println("-- Tests: Deck Of Cards --");
