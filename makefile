@@ -10,3 +10,6 @@ test:
 	g++ -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces \
 		tests/tests.cpp tests/TestDeckOfCards.cpp tests/TestGameState.cpp \
 		-o jacks_tests && ./jacks_tests
+
+format:
+	clang-format -i ./*.h ./*.cpp
