@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cassert>
 #include <ostream>
+#include <print>
 
 namespace tests::test_cases {
 void FreshAndShuffledDeckDiffer(DeckOfCards &fresh_deck,
@@ -16,8 +17,8 @@ void FreshAndShuffledDeckDiffer(DeckOfCards &fresh_deck,
 
 void DeckContainsCorrectNumberOfCards(DeckOfCards &deck,
                                       std::string_view name) {
-  const std::array<uint8_t, 13> cards{1, 2, 3,  4,  5,  6, 7,
-                                      8, 9, 10, 11, 12, 13};
+  const std::array<std::uint8_t, 13> cards{1, 2, 3,  4,  5,  6, 7,
+                                           8, 9, 10, 11, 12, 13};
   for (const auto &card : cards) {
     assert(std::count(deck.deck.begin(), deck.deck.end(), card) == 4 &&
            std::format("FAILED: {} deck has incorrect number of a card", name)

@@ -15,4 +15,6 @@ format:
 	clang-format -i ./*.hpp ./*.cpp ./**/*.hpp ./**/*.cpp
 
 tidy:
-	clang-tidy --fix ./*.hpp ./*.cpp ./**/*.hpp ./**/*.cpp
+	clang-tidy --fix -fix-errors -header-filter=.* \
+		-checks='bugprone-*,clang-analyzer-*,clang-diagnostic-*,cppcoreguidelines-*,performance-*,readability-*' \
+		./main.cpp ./tests/tests.cpp

@@ -12,30 +12,31 @@ class GameState {
   DeckOfCards cards_;
   // maybe make board_ an unordered_map, where each key is the card, and the
   // value is the number of that card on the board
-  std::array<Card, board_size> board_;
+  std::array<Card, board_size> board_{};
 
 public:
-  constexpr explicit GameState(DeckOfCards cards)
-      : cards_(std::move(cards)), board_{} {
+  constexpr explicit GameState(DeckOfCards cards) : cards_(cards) {
     // take the first `board_size` cards from the top of the deck
     for (size_t index{0}; index < board_size; index++) {
       auto top_card = cards_.try_pop_card();
-      if (top_card == std::nullopt)
+      if (top_card == std::nullopt) {
         throw std::runtime_error("Could not initialize board");
+      }
 
-      board_[index] = std::move(*top_card);
+      board_.at(index) = *top_card;
     }
   }
 
   constexpr std::string str() {
     constexpr size_t row_length = 3;
 
-    std::string result{""};
+    std::string result;
     for (size_t card_index{0}; card_index < board_size; card_index++) {
       if (card_index > 0 && card_index % row_length == 0) {
         result += "\n";
       }
-      result += std::format("{} ", board_[card_index].str());
+      result +=
+          std::format("{} ", card_utils::to_string(board_.at(card_index)));
     }
     return result;
   }
@@ -44,14 +45,16 @@ public:
   /// returns false if we ran out of cards
   /// if you provided an invalid index, we will throw a tantrum
   constexpr bool replace(const size_t index) {
-    if (index >= board_size)
+    if (index >= board_size) {
       throw std::invalid_argument("index out of range");
+    }
     const auto top_card = cards_.try_pop_card();
 
-    if (top_card == std::nullopt)
+    if (top_card == std::nullopt) {
       return false;
+    }
 
-    board_[index] = std::move(*top_card);
+    board_.at(index) = *top_card;
     return true;
   }
 
@@ -60,15 +63,17 @@ public:
   /// finds a pair of indexes where the values add to 11
   /// if none exist, return nullopt
   constexpr std::optional<std::array<size_t, 2>> find_pair() {
-    constexpr uint8_t sums_to = 11;
-    for (uint8_t i{1}; i <= sums_to / 2; i++) {
-      const auto first_it = std::find(board_.begin(), board_.end(), i);
-      if (first_it == board_.end())
+    constexpr std::uint8_t sums_to = 11;
+    for (std::uint8_t i{1}; i <= sums_to / 2; i++) {
+      auto *const first_it = std::find(board_.begin(), board_.end(), i);
+      if (first_it == board_.end()) {
         continue;
-      const auto second_it =
+      }
+      auto *const second_it =
           std::find(board_.begin(), board_.end(), sums_to - i);
-      if (second_it == board_.end())
+      if (second_it == board_.end()) {
         continue;
+      }
 
       return std::array<size_t, 2>{
           static_cast<size_t>(first_it - board_.begin()),
@@ -80,13 +85,14 @@ public:
   /// finds a trio of indexes where the values are king, queen, jack
   /// if none exist, return nullopt
   constexpr std::optional<std::array<size_t, 3>> find_triple() {
-    constexpr std::array<Card, 3> face_cards{11, 12, 13};
-    std::array<size_t, 3> result_indexes{};
-    for (size_t i{0}; i < 3; i++) {
-      const auto it = std::find(board_.begin(), board_.end(), face_cards[i]);
-      if (it == board_.end())
+    std::array<size_t, card_utils::face_cards.size()> result_indexes{};
+    for (size_t i{0}; i < card_utils::face_cards.size(); i++) {
+      auto *const face_it =
+          std::find(board_.begin(), board_.end(), card_utils::face_cards.at(i));
+      if (face_it == board_.end()) {
         return std::nullopt;
-      result_indexes[i] = static_cast<size_t>(it - board_.begin());
+      }
+      result_indexes.at(i) = static_cast<size_t>(face_it - board_.begin());
     }
     return result_indexes;
   }
