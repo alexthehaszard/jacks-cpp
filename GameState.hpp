@@ -86,8 +86,7 @@ public:
   /// if none exist, return nullopt
   constexpr std::optional<std::array<size_t, 3>> find_triple() {
     std::array<size_t, card_utils::face_cards.size()> result_indexes{};
-    for (size_t i{0}; i < card_utils::face_cards.size(); i++) {
-      auto *const face_it =
+    for (size_t i{0}; i < card_utils::face_cards.size(); i++) {auto *const face_it =
           std::find(board_.begin(), board_.end(), card_utils::face_cards.at(i));
       if (face_it == board_.end()) {
         return std::nullopt;

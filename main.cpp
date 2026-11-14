@@ -7,7 +7,6 @@
 constexpr size_t games = 100'000;
 
 int main() {
-  try {
     const auto before = std::chrono::high_resolution_clock::now();
 
     size_t wins = 0;
@@ -25,8 +24,4 @@ int main() {
         std::chrono::duration_cast<std::chrono::milliseconds>(duration));
 
     return 0;
-  } catch (const std::exception &e) {
-    std::cerr << "Exception caught in function main: {}" << e.what() << '\n';
-    return 1;
-  }
 }
