@@ -62,14 +62,14 @@ public:
 
   /// finds a pair of indexes where the values add to 11
   /// if none exist, return nullopt
-  constexpr std::optional<std::array<size_t, 2>> find_pair() {
+  constexpr std::optional<std::array<size_t, 2>> find_pair() const {
     constexpr std::uint8_t sums_to = 11;
     for (std::uint8_t i{1}; i <= sums_to / 2; i++) {
-      auto *const first_it = std::find(board_.begin(), board_.end(), i);
+      const auto *const first_it = std::find(board_.begin(), board_.end(), i);
       if (first_it == board_.end()) {
         continue;
       }
-      auto *const second_it =
+      const auto *const second_it =
           std::find(board_.begin(), board_.end(), sums_to - i);
       if (second_it == board_.end()) {
         continue;
@@ -84,10 +84,10 @@ public:
 
   /// finds a trio of indexes where the values are king, queen, jack
   /// if none exist, return nullopt
-  constexpr std::optional<std::array<size_t, 3>> find_triple() {
+  constexpr std::optional<std::array<size_t, 3>> find_triple() const {
     std::array<size_t, card_utils::face_cards.size()> result_indexes{};
     for (size_t i{0}; i < card_utils::face_cards.size(); i++) {
-      auto *const face_it =
+      const auto *const face_it =
           std::find(board_.begin(), board_.end(), card_utils::face_cards.at(i));
       if (face_it == board_.end()) {
         return std::nullopt;
