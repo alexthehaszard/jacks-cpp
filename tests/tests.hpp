@@ -1,9 +1,6 @@
 #pragma once
 
-#include <print>
-
-namespace tests
-{
+namespace tests {
 void Test_DeckOfCards();
 void Test_GameState();
-}
+} // namespace tests
