@@ -1,7 +1,6 @@
 #include "../GameState.hpp"
 #include "tests.hpp"
 
-#include "cassert"
 #include <print>
 
 constexpr DeckOfCards winning_deck{{1, 10, 2, 9, 3, 8, 4, 7, 5, 6, 11, 12, 13,
@@ -40,16 +39,16 @@ namespace tests::test_cases {
 void WinsGame() {
   GameState game(winning_deck);
   PlayGame(game);
-  assert(game.has_won() &&
-         "FAILED: the game was supposed to have been won, but was lost");
+  AssertTrue(game.has_won(),
+             "FAILED: the game was supposed to have been won, but was lost");
   std::println("PASSED: The game was successfully won");
 }
 
 void LosesGame() {
   GameState game(losing_deck);
   PlayGame(game);
-  assert(!game.has_won() &&
-         "FAILED: the game was supposed to have been lost, but was won");
+  AssertTrue(!game.has_won(),
+             "FAILED: the game was supposed to have been lost, but was won");
   std::println("PASSED: the game was successfully lost");
 }
 } // namespace tests::test_cases
