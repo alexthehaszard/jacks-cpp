@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Card.h"
-#include "DeckOfCards.h"
+#include "Card.hpp"
+#include "DeckOfCards.hpp"
 
 #include <algorithm>
 #include <ostream>

@@ -12,4 +12,7 @@ test:
 		-o jacks_tests && ./jacks_tests
 
 format:
-	clang-format -i ./*.h ./*.cpp
+	clang-format -i ./*.hpp ./*.cpp ./**/*.hpp ./**/*.cpp
+
+tidy:
+	clang-tidy --fix ./*.hpp ./*.cpp ./**/*.hpp ./**/*.cpp
