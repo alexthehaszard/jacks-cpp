@@ -3,7 +3,12 @@
 #include <print>
 #include <string>
 
-void AssertTrue(bool statement, std::string_view message);
+inline void AssertTrue(bool statement, std::string_view message) {
+  if (!statement) {
+    std::println("{}", message);
+    throw std::runtime_error("Assertion failed");
+  }
+}
 
 namespace tests {
 void Test_DeckOfCards();

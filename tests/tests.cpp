@@ -1,14 +1,8 @@
 #include "tests.hpp"
+#include "TestConstexprGameState.hpp"
 
 #include <iostream>
 #include <print>
-
-void AssertTrue(bool statement, std::string_view message) {
-  if (!statement) {
-    std::println("{}", message);
-    throw std::runtime_error("Assertion failed");
-  }
-}
 
 int main() {
   try {
@@ -16,6 +10,14 @@ int main() {
     tests::Test_DeckOfCards();
     std::println("-- Tests: Game State --");
     tests::Test_GameState();
+
+    // constexpr tests run at compile time, so a failing test will
+    // cause a compilation error.
+    // really this _should_ be wrapped in a "consteval" block, but
+    // that is a c++26 feature that isn't fully supported yet by
+    // my build/lint stack
+    constexpr_tests::Test_GameState();
+
     return 0;
   } catch (const std::exception &e) {
     std::cerr << "Exception caught in function main: {}" << e.what() << '\n';

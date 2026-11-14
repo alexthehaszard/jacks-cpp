@@ -49,9 +49,9 @@ public:
     return deck_pointer_ < deck_.size();
   }
 
-  constexpr std::string str() {
+  constexpr std::string str() const {
     std::string out{};
-    for (auto &card : deck_) {
+    for (const auto &card : deck_) {
       out += std::format("{} ", card_utils::to_string(card));
     }
     return out;

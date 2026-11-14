@@ -17,6 +17,12 @@
 /// 13 = king
 using Card = std::uint8_t;
 
+/// Here we're providing the functionality that applies for cards
+/// (other than what is provided in its underlying type) separately
+/// from the actual data structure. Maybe we should just give up and
+/// make it a class. Or a struct, with a constructor and some helpers.
+/// I don't know. But it works as is, and I'm not too mad about it.
+/// I do like having the card be just an int though. It's easy :)
 namespace card_utils {
 enum class Faces : Card { Jack = 11, Queen = 12, King = 13 };
 constexpr std::array<Card, 3> face_cards{std::to_underlying(Faces::Jack),
