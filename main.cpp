@@ -24,6 +24,15 @@ int main() {
         "You won {}/{} games in {}", wins, games,
         std::chrono::duration_cast<std::chrono::milliseconds>(duration));
 
+    std::println(
+        "Average shuffle time: {}\nAverage game time: {}\nDatapoints: {}",
+        player::average_shuffle_runtime, player::average_game_runtime,
+        player::game_data_points);
+    std::println(
+        "Average find time: {}\nAverage replace time: {}\nFind datapoints: {}\nReplace Datapoints: {}",
+        player::average_find_runtime, player::average_replace_runtime,
+        player::find_data_points, player::replace_data_points);
+
     return 0;
   } catch (const std::exception &e) {
     std::cerr << "Exception caught in function main: {}" << e.what() << '\n';

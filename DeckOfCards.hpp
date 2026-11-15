@@ -37,7 +37,7 @@ public:
     }
 
     static std::random_device device;
-    static std::mt19937 prng{device()};
+    static std::minstd_rand prng{device()};
     static std::uniform_int_distribution distribution{0UZ, deck_.size() - 1};
 
     for (auto &card : deck_) {
