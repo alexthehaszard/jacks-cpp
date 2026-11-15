@@ -22,7 +22,7 @@ int main() {
 
     return 0;
   } catch (const std::exception &e) {
-    std::cerr << "Exception caught in function main: {}" << e.what() << '\n';
+    std::cerr << "Exception caught in function main: " << e.what() << '\n';
     return 1;
   }
 }
