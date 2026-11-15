@@ -43,11 +43,7 @@ public:
     for (auto &card : deck_) {
       // get the new index (in deck) where this card now belongs
       const auto new_index = distribution(prng);
-
-      // swap the two cards
-      const auto temp_card_value = card;
-      card = deck_.at(new_index);
-      deck_.at(new_index) = temp_card_value;
+      std::swap(card, deck_.at(new_index));
     }
   }
 
