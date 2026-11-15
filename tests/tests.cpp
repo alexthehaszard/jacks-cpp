@@ -1,4 +1,5 @@
 #include "tests.hpp"
+#include "TestConstexprDeckOfCards.hpp"
 #include "TestConstexprGameState.hpp"
 
 #include <iostream>
@@ -17,6 +18,7 @@ int main() {
     // that is a c++26 feature that isn't fully supported yet by
     // my build/lint stack
     constexpr_tests::Test_GameState();
+    constexpr_tests::Test_DeckOfCards();
 
     return 0;
   } catch (const std::exception &e) {
