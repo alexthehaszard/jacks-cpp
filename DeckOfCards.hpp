@@ -6,6 +6,14 @@
 #include <format>
 #include <random>
 
+/// Stores a deck of cards. Acts like a "stack", where you can pop
+/// off the top card from the deck.
+///
+/// Everything here is constexpr!
+/// Except for shuffling a deck. We can't do that at compile time.
+/// If you want a "shuffled" deck at compile time, you must define
+/// the exact "shuffled" state of that deck, and pass it into the
+/// constructor.
 class DeckOfCards {
   static constexpr std::uint8_t number_of_cards = 52;
   static constexpr std::array<Card, number_of_cards> standard_deck = {
@@ -15,14 +23,12 @@ class DeckOfCards {
 
   using Deck = std::array<Card, number_of_cards>;
 
-  size_t deck_pointer_;
-  Deck deck_{};
+  size_t deck_pointer_{0};
+  Deck deck_{standard_deck};
 
 public:
-  constexpr DeckOfCards() : deck_pointer_{0}, deck_{standard_deck} {};
-
-  explicit constexpr DeckOfCards(const Deck &other)
-      : deck_pointer_{0}, deck_{other} {};
+  constexpr DeckOfCards() = default;
+  explicit constexpr DeckOfCards(const Deck &other) : deck_{other} {};
 
   void shuffle() {
     if (deck_pointer_ != 0) {
@@ -58,7 +64,7 @@ public:
   }
 
   constexpr std::optional<Card> try_pop_card() {
-    if (deck_pointer_ >= deck_.size()) {
+    if (!has_any_cards_left()) {
       return std::nullopt;
     }
 

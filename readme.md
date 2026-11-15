@@ -18,7 +18,8 @@ Now, with this version, in some slightly better optimized c++, I was able to run
 
 1,088,974/10,000,000 (10.88974%, 5772ms)
 
-### Further improvements
+### Other notes
 
-- Better testing... I am not 100% sure we are simulating the game correctly every time. Hopefully we are.
-- Multithreading?
+- The limiting factor (in terms of runtime speed) is the random number generation.
+- Possibly we should make the DeckOfCards havea variable size (using templates?)
+  - May help with testing?

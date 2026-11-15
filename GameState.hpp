@@ -6,6 +6,11 @@
 #include <algorithm>
 #include <ostream>
 
+/// Stores the state of the game.
+/// Also provides very specific ways to interact with that state (modifying
+/// and accessing).
+///
+/// All constexpr, except "replace".
 class GameState {
   constexpr static size_t board_size = 9;
 
@@ -54,7 +59,7 @@ public:
       return false;
     }
 
-    board_.at(index) = *top_card;
+    board_.at(index) = top_card.value();
     return true;
   }
 
