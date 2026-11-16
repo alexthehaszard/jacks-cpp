@@ -69,20 +69,12 @@ public:
   /// if none exist, return nullopt
   constexpr std::optional<std::array<size_t, 2>> find_pair() const {
     constexpr std::uint8_t sums_to = 11;
-    for (std::uint8_t i{1}; i <= sums_to / 2; i++) {
-      const auto *const first_it = std::find(board_.begin(), board_.end(), i);
-      if (first_it == board_.end()) {
-        continue;
+    for (std::uint8_t i{0}; i < board_.size()-1; i++)
+    {
+      const auto *const card_it = std::find(board_.begin() + i, board_.end(), sums_to - board_.at(i));
+      if (card_it != board_.end()) {
+        return std::array<size_t, 2>{i, static_cast<size_t>(card_it - board_.begin())};
       }
-      const auto *const second_it =
-          std::find(board_.begin(), board_.end(), sums_to - i);
-      if (second_it == board_.end()) {
-        continue;
-      }
-
-      return std::array<size_t, 2>{
-          static_cast<size_t>(first_it - board_.begin()),
-          static_cast<size_t>(second_it - board_.begin())};
     }
     return std::nullopt;
   }
