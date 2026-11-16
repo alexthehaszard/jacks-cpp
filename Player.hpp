@@ -11,21 +11,13 @@ GameResult PlayNewGame() {
 
   GameState game{deck};
   while (true) {
-    auto pair = game.find_pair();
-    if (pair) {
-      if (!game.replace((*pair).at(0)) || !game.replace((*pair).at(1))) {
+    auto result = game.search();
+    if (result) {
+      if (!game.replace((*result).at(0)) || !game.replace((*result).at(1)) ||
+          (result.value().at(2) != 0xFFFF && !game.replace((*result).at(2)))) {
         break;
       }
-    }
-
-    auto triple = game.find_triple();
-    if (triple) {
-      if (!game.replace((*triple).at(0)) || !game.replace((*triple).at(1)) ||
-          !game.replace((*triple).at(2))) {
-        break;
-      }
-    } else if (!pair) {
-      // no pair or triple :(
+    } else {
       break;
     }
   }
