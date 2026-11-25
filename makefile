@@ -14,7 +14,7 @@ build-test:
 
 test-run:
 	make build-test && \
-	LLVM_PROFILE_FILE="jacks_tests.profraw" ./jacks_tests &&
+	LLVM_PROFILE_FILE="jacks_tests.profraw" ./jacks_tests
 
 test:
 	make test-run && \
