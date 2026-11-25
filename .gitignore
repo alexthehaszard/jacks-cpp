@@ -1,4 +1,9 @@
 .vscode
+
+*.dSYM
+*.profraw
+*.profdata
+
 jacks
 jacks_tests
-*.dSYM
+coverage_report

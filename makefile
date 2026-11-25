@@ -6,10 +6,18 @@ debug:
 	g++ -std=c++26 -g -Wall -Wextra -Werror -Wno-missing-braces \
 		main.cpp -o jacks
 
-test:
-	g++ -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces \
+build-test:
+	/opt/local/bin/clang++-mp-23 -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces \
+		-fprofile-instr-generate -fcoverage-mapping \
 		tests/tests.cpp tests/TestDeckOfCards.cpp tests/TestGameState.cpp \
-		-o jacks_tests && ./jacks_tests
+		-o jacks_tests
+
+test:
+	make build-test && \
+	LLVM_PROFILE_FILE="jacks_tests.profraw" ./jacks_tests && \
+	llvm-profdata merge -sparse jacks_tests.profraw -o jacks_tests.profdata && \
+	llvm-cov show --format=html ./jacks_tests -instr-profile=jacks_tests.profdata \
+		-output-dir=./coverage_report -ignore-filename-regex=tests.*
 
 format:
 	clang-format -i ./*.hpp ./*.cpp ./**/*.hpp ./**/*.cpp
@@ -27,3 +35,4 @@ test-tidy:
 		-checks='bugprone-*,clang-analyzer-*,clang-diagnostic-*,cppcoreguidelines-*,performance-*,readability-*' \
 		--warnings-as-errors='bugprone-*,clang-analyzer-*,clang-diagnostic-*,cppcoreguidelines-*,performance-*,readability-*' \
 		./main.cpp ./tests/tests.cpp
+
