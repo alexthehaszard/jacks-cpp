@@ -12,11 +12,9 @@ build-test:
 		tests/tests.cpp tests/TestDeckOfCards.cpp tests/TestGameState.cpp \
 		-o jacks_tests
 
-test-run:
-	make build-test && \
-	LLVM_PROFILE_FILE="jacks_tests.profraw" ./jacks_tests
-
 test:
+	make build-test && \
+	LLVM_PROFILE_FILE="jacks_tests.profraw" ./jacks_tests && \
 	make test-run && \
 	llvm-profdata merge -sparse jacks_tests.profraw -o jacks_tests.profdata && \
 	llvm-cov show --format=html ./jacks_tests -instr-profile=jacks_tests.profdata \
