@@ -7,7 +7,7 @@ debug:
 		main.cpp -o jacks
 
 build-test:
-	/opt/local/bin/clang++-mp-23 -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces \
+	clang++ -std=c++26 -Wall -Wextra -Werror -Wno-missing-braces \
 		-fprofile-instr-generate -fcoverage-mapping \
 		tests/tests.cpp tests/TestDeckOfCards.cpp tests/TestGameState.cpp \
 		-o jacks_tests
